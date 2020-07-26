@@ -3,4 +3,7 @@
 {% block body_class %}template-homepage{% endblock %}
 {% block content %}
     {{ page.body|richtext }}
+    {% for post in blog_indexes %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {% endfor %}
 {% endblock %}

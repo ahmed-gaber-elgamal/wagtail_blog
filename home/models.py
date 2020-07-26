@@ -10,3 +10,8 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('body', classname='full')
     ]
+    def get_context(self, request):
+        context = super().get_context(request)
+        blog_indexes = self.get_children().live().order_by('-first_published_at')
+        context['blog_indexes'] = blog_indexes
+        return context
