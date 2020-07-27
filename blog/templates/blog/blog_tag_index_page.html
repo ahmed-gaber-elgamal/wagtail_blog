@@ -4,7 +4,6 @@
     {% if request.GET.tag|length %}
         <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
     {% endif %}
-    <h1>{{ author.name }}</h1>
     {% for blogpage in blogpages  %}
         <p>
             <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
