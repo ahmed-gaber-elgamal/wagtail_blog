@@ -7,7 +7,8 @@ from wagtail.search import index
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
@@ -17,6 +18,7 @@ class BlogIndexPage(Page):
         context = super().get_context(request)
         blogpages = self.get_children().live().order_by('-first_published_at')
         context['blogpages'] = blogpages
+        # context['author'] = BlogPageAuthor.objects.all()
         return context
 
 class BlogPageTag(TaggedItemBase):
@@ -43,6 +45,7 @@ class BlogPage(Page):
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),
+            InlinePanel("post_author", label='Author', max_num=1)
 
         ], heading='Blog information'),
         FieldPanel('intro'),
@@ -60,6 +63,16 @@ class BlogPageGalleryImage(Orderable):
         FieldPanel('caption'),
     ]
 
+class BlogPageAuthor(Orderable):
+    page = ParentalKey(BlogPage, related_name="post_author", null=True)
+    author = models.ForeignKey(
+        "blog.BlogAuthor",
+        on_delete=models.CASCADE,
+        null=True
+    )
+    panels = [
+        SnippetChooserPanel("author")
+    ]
 
 class BlogTagIndexPage(Page):
     def get_context(self, request):
@@ -67,4 +80,32 @@ class BlogTagIndexPage(Page):
         blogpages = BlogPage.objects.filter(tags__name=tag)
         context = super().get_context(request)
         context['blogpages'] = blogpages
+        # context['author'] = BlogPageAuthor.objects.all()
         return context
+
+class BlogAuthor(models.Model):
+    name = models.CharField(max_length=250)
+    website = models.URLField(blank=True, null=True)
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=False,
+        related_name="+"
+    )
+    panels =  [
+        MultiFieldPanel([
+            FieldPanel('name'),
+            ImageChooserPanel("image"),
+        ], heading='Author information'),
+        MultiFieldPanel([
+            FieldPanel('website'),
+            ], heading='Links'),
+
+    ]
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = "Post Author"
+        verbose_name = "Post Authors"
+register_snippet(BlogAuthor)

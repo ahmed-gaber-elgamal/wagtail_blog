@@ -1,12 +1,11 @@
 {% extends "base.html" %}
-
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
 {% block content %}
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
+    <p class="meta">posted at {{ page.date }} by {{ page.owner }}</p>
 
     <div class="intro">{{ page.intro }}</div>
 
@@ -17,6 +16,21 @@
             {% image item.image fill-320x240 %}
             <p>{{ item.caption }}</p>
         </div>
+
+    {% endfor %}
+
+    {% for author in self.post_author.all %}
+    {% image author.author.image fill-100x100 as img %}
+        <h1>
+            posted by:
+            <a href="{{ author.author.website }}" target="_blank">
+
+            </a>
+
+        </h1>
+         <a href="{{ author.author.website }}" target="_blank">
+            <img src="{{ img.url }}" title="{{ author.author.name }}" />
+         </a>
 
     {% endfor %}
 
