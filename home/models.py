@@ -1,8 +1,9 @@
 from django.db import models
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
+from modelcluster.fields import ParentalKey
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from streams import blocks
 class HomePage(Page):
@@ -30,6 +31,10 @@ class HomePage(Page):
         ImageChooserPanel('banner_image'),
         PageChooserPanel('banner_cta'),
         FieldPanel('body', classname='full'),
+        MultiFieldPanel([
+            InlinePanel("carousel_images", max_num=5, min_num=1)
+        ], heading='carousel images')
+
     ]
     def get_context(self, request):
         context = super().get_context(request)
@@ -51,4 +56,12 @@ class BlogAbout(Page):
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
         StreamFieldPanel("content")
+    ]
+class HomePageCarouselImages(Orderable):
+    page = ParentalKey('home.HomePage', on_delete=models.CASCADE, related_name='carousel_images')
+    carousel_image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+', null=True, blank=False)
+    caption = models.CharField(blank=True, max_length=250)
+    panels = [
+        ImageChooserPanel('carousel_image'),
+
     ]
