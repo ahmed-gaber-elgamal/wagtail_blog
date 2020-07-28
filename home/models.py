@@ -63,5 +63,5 @@ class HomePageCarouselImages(Orderable):
     caption = models.CharField(blank=True, max_length=250)
     panels = [
         ImageChooserPanel('carousel_image'),
-
+        FieldPanel('caption')
     ]

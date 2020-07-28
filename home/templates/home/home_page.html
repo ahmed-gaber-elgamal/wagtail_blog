@@ -17,11 +17,16 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             {% for loop_cycle in self.carousel_images.all %}
-                {% image loop_cycle.carousel_image fill-900x400 as imgg %}
+                {% image loop_cycle.carousel_image fill-800x400 as img %}
 
             <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-                <img src="{{ imgg.url }}" class="d-block w-100" alt="...">
+                <img src="{{ img.url }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ loop_cycle.caption }}</h5>
+                  </div>
             </div>
+                  <div class="carousel-caption d-none d-md-block">
+                  </div>
               {% endfor %}
           </div>
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -33,4 +38,20 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+    <div class="list-group">
+        <h3>Site Settings:</h3>
+        {% if settings.site_settings.SocialMediaSettings.facebook %}
+        <a href="{{ settings.site_settings.SocialMediaSettings.facebook }}" class="list-group-item list-group-item-action active"><h5>like us on facebook</h5><i class="fas fa-thumbs-up fa-5x "></i></a>
+        {% endif %}
+        {% if settings.site_settings.SocialMediaSettings.gmail %}
+            <a href="{{ settings.site_settings.SocialMediaSettings.gmail }}" class="list-group-item list-group-item-action active"><h5>contact us on gmail</h5><i class="fab fa-google fa-5x"></i></a>
+        {% endif %}
+        {% if settings.site_settings.SocialMediaSettings.linkedin %}
+            <a href="{{ settings.site_settings.SocialMediaSettings.linkedin }}" class="list-group-item list-group-item-action active"><h5>connect us on linkedin</h5><i class="fab fa-linkedin fa-5x"></i></a>
+        {% endif %}
+        {% if settings.site_settings.SocialMediaSettings.github %}
+            <a href="{{ settings.site_settings.SocialMediaSettings.github }}" class="list-group-item list-group-item-action active"><h5>follow us on github</h5><i class="fab fa-github fa-5x"></i></a>
+        {% endif %}
+
+</div>
 {% endblock %}
