@@ -2,7 +2,7 @@ from django.db import models
 from django import forms
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -10,6 +10,9 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.core.fields import StreamField
+from streams import blocks
+
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
@@ -19,8 +22,9 @@ class BlogIndexPage(Page):
         context = super().get_context(request)
         blogpages = self.get_children().live().order_by('-first_published_at')
         context['blogpages'] = blogpages
-        # context['author'] = BlogPageAuthor.objects.all()
         return context
+
+# todo:about(page)
 
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
@@ -32,6 +36,12 @@ class BlogPage(Page):
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories = ParentalManyToManyField("blog.BlogCategory", blank=True)
+    sequel = StreamField([
+        ('title_and_text', blocks.TitleAndTextBlock()),
+
+    ],  null=True,
+        blank=True
+    )
 
     def main_image(self):
         gallery_item = self.gallery_images.first()
@@ -48,11 +58,13 @@ class BlogPage(Page):
             FieldPanel('date'),
             FieldPanel('tags'),
             InlinePanel("post_author", label='Author', max_num=1),
-            FieldPanel("categories", widget=forms.CheckboxSelectMultiple)
+            FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
+
         ], heading='Blog information'),
         FieldPanel('intro'),
         FieldPanel('body', classname='full'),
         InlinePanel('gallery_images', label='Gallery Images'),
+        StreamFieldPanel("sequel")
     ]
 
 

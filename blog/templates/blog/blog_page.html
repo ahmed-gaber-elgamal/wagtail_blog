@@ -32,7 +32,13 @@
         </div>
 
     {% endfor %}
-
+    {% if page.sequel %}
+    <p class="text-danger">Sequel: </p>
+    {% for block in page.sequel %}
+<!--        {{ block.count }} #todo-->
+        {% include_block block %}
+    {% endfor %}
+    {% endif %}
     {% for author in self.post_author.all %}
     {% image author.author.image fill-100x100 as img %}
         <h1>

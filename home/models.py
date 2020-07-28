@@ -1,10 +1,10 @@
 from django.db import models
 
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-
+from streams import blocks
 class HomePage(Page):
     max_count = 1
     banner_title = models.CharField(max_length=250, blank=False, null=True)
@@ -36,3 +36,19 @@ class HomePage(Page):
         blog_indexes = self.get_children().live().order_by('-first_published_at')
         context['blog_indexes'] = blog_indexes
         return context
+
+
+class BlogAbout(Page):
+    max_count = 1
+    content = StreamField([
+        ("title_and_text", blocks.TitleAndTextBlock()),
+        ("Full_richtext", blocks.RichtextBlock()),
+        ("card_block", blocks.CardBlock()),
+    ], null=True,
+       blank=True
+    )
+    subtitle = models.CharField(max_length=250, blank=True, null=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
+        StreamFieldPanel("content")
+    ]
