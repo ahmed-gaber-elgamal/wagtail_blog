@@ -68,6 +68,23 @@ class BlogPage(Page):
     ]
 
 
+class VideoBlogPage(BlogPage):
+    youtube_video_id = models.CharField(max_length=300)
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('youtube_video_id'),
+            FieldPanel('date'),
+            FieldPanel('tags'),
+            InlinePanel("post_author", label='Author', max_num=1),
+            FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
+
+        ], heading='Blog information'),
+        FieldPanel('intro'),
+        FieldPanel('body', classname='full'),
+        InlinePanel('gallery_images', label='Gallery Images'),
+        StreamFieldPanel("sequel")
+    ]
+
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
     image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
