@@ -1,5 +1,7 @@
 from django.db import models
 from django import forms
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
@@ -20,8 +22,18 @@ class BlogIndexPage(Page):
     ]
     def get_context(self, request):
         context = super().get_context(request)
-        blogpages = self.get_children().live().order_by('-first_published_at')
+        blogpages = BlogPage.objects.live().order_by('-first_published_at')
+        paginator = Paginator(blogpages, 1)
+        page = request.GET.get("page")
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+
         context['blogpages'] = blogpages
+        context['posts'] = posts
         return context
 
 # todo:about(page)
