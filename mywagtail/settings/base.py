@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     "subscribers",
     'wagtailmenus',
+    'contact'
 
 ]
 
