@@ -1,7 +1,6 @@
 from django.db import models
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
