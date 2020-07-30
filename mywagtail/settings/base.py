@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
-
+    'wagtail.api.v2',
     'modelcluster',
     'taggit',
 
@@ -52,13 +52,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
 
+
+
     'blog',
     'streams',
     "site_settings",
     'wagtail.contrib.settings',
     "subscribers",
     'wagtailmenus',
-    'contact'
+    'contact',
+    'rest_framework'
 
 ]
 
@@ -175,3 +178,4 @@ WAGTAIL_SITE_NAME = "mywagtail"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+

@@ -15,6 +15,11 @@ from wagtail.core.fields import StreamField
 from streams import blocks
 
 class BlogIndexPage(Page):
+    subpage_types = [
+        'blog.BlogPage',
+        'blog.VideoBlogPage',
+    ]
+    parent_page_types = ['home.HomePage']
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname='full')
@@ -42,6 +47,8 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(Page):
+    subpage_types = []
+    parent_page_types = ['blog.BlogIndexPage']
     date = models.DateField('Post date')
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
@@ -117,6 +124,8 @@ class BlogPageAuthor(Orderable):
     ]
 
 class BlogTagIndexPage(Page):
+    subpage_types = []
+    parent_page_types = ['home.HomePage']
     def get_context(self, request):
         tag = request.GET.get('tag')
         blogpages = BlogPage.objects.filter(tags__name=tag)

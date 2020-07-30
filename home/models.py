@@ -1,13 +1,21 @@
 from django.db import models
 
+from wagtail.api import APIField
 from wagtail.core.models import Page, Orderable
 from modelcluster.fields import ParentalKey
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from streams import blocks
+
+
 class HomePage(Page):
-    max_count = 1
+    parent_page_type = ['wagtailcore.Page']
+    subpage_types = [
+        'blog.BlogIndexPage',
+        'contact.ContactPage',
+
+    ]
     banner_title = models.CharField(max_length=250, blank=False, null=True)
     banner_subtitle = RichTextField(features=['bold', 'italic'])
     banner_image = models.ForeignKey(
@@ -25,6 +33,12 @@ class HomePage(Page):
         related_name="+",
     )
     body = RichTextField(blank=True)
+    api_fields = [
+        APIField('banner_title'),
+        APIField('banner_image'),
+        APIField('banner_cta'),
+        APIField('banner_subtitle')
+    ]
     content_panels = Page.content_panels + [
         FieldPanel('banner_title'),
         FieldPanel('banner_subtitle'),
@@ -44,6 +58,7 @@ class HomePage(Page):
 
 
 class BlogAbout(Page):
+    subpage_types = []
     max_count = 1
     content = StreamField([
         ("title_and_text", blocks.TitleAndTextBlock()),

@@ -4,11 +4,12 @@ from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, 
 from wagtail.core.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
-
 class FormField(AbstractFormField):
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
 
 class ContactPage(AbstractEmailForm):
+    subpage_types = []
+    parent_page_types = ['home.HomePage']
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
     content_panels = AbstractEmailForm.content_panels+[
