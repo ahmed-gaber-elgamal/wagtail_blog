@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
     url(r'^api/v2/',api_router.urls ),
     url(r'^sitemap.xml$', sitemap),
+    # path('', include('allauth.urls')),
+    url(r'', include('allauth.urls')),
     url(r'', include(wagtail_urls))
 ]
 

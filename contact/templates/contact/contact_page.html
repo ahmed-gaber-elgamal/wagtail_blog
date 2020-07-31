@@ -4,10 +4,10 @@
     <h1>{{ self.title }}</h1>
     <h3>{{ self.intro|richtext }}</h3>
     <form action="{% pageurl page %}" method="post">
-  {% csrf_token %}
-  {{ form.non_field_errors }}
-  {{ form.source.errors }}
-  {{ form.source }}
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.source.errors }}
+    {{ form.source }}
   <fieldset>
     <div class="form-group">
 

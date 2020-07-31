@@ -20,6 +20,7 @@ class BlogIndexPage(Page):
         'blog.VideoBlogPage',
     ]
     parent_page_types = ['home.HomePage']
+    # ajax_template = "blog/blog_index_page_ajax.html"
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname='full')

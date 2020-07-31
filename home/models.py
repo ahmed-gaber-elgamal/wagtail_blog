@@ -4,8 +4,9 @@ from wagtail.api import APIField
 from wagtail.core.models import Page, Orderable
 from modelcluster.fields import ParentalKey
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, ObjectList, TabbedInterface
 from wagtail.images.edit_handlers import ImageChooserPanel
+# from wagtail.admin.edit_handlers import
 from streams import blocks
 
 
@@ -50,6 +51,19 @@ class HomePage(Page):
         ], heading='carousel images')
 
     ]
+    custom_panels = [
+        FieldPanel('banner_title'),
+        FieldPanel('banner_subtitle'),
+        ImageChooserPanel('banner_image'),
+    ]
+
+    # override edit_handler
+    # edit_handler = TabbedInterface([
+    #     ObjectList(content_panels, heading='Content'),
+    #     ObjectList(Page.promote_panels, heading='Promote'),
+    #     ObjectList(Page.settings_panels, heading='Settings'),
+    #     ObjectList(custom_panels, heading='Sidebar Settings')
+    # ])
     def get_context(self, request):
         context = super().get_context(request)
         blog_indexes = self.get_children().live().order_by('-first_published_at')
