@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'home',
     'search',
 
+    'wagtail_contact_reply',  # Must be before wagtail.contrib.forms
     'wagtail.contrib.forms',
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.sitemaps',
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
      'django_comments',
     'django_social_share',
     "social_widgets",
+
 
 ]
 SITE_ID = 1
