@@ -3,12 +3,6 @@
 {% load menu_tags %}
 {% load static %}
 {% load wagtail_opengraph_image_generator_tags %}
-{% get_existing_og_image self as og_image %}
-
-{% if og_image %}
-    {% image og_image original as og_image %}
-    <meta property="og:image" content="{{ self.get_site.root_url }}{{ og_image.url }}">
-{% endif %}
 
 
 <!DOCTYPE html>
@@ -41,14 +35,9 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
-    {% if og_image %}
-    {% image og_image original as og_image %}
-    <meta property="og:image" content="{{ self.get_site.root_url }}{{ og_image.url }}">
-    {% endif %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="{% slugurl 'home' %}">
             <img src="{% static 'images/ghost2.svg' %}" height="35" width="35">
-<!--              Horror-->
           </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

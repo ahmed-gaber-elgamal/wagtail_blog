@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin_oauth2',
     'wagtail_opengraph_image_generator',
+    'widget_tweaks',
+    'threadedcomments',
 
     'blog',
     'streams',
@@ -72,6 +74,9 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'contact',
     'rest_framework',
+     'django_comments',
+    'django_social_share',
+    "social_widgets",
 
 ]
 SITE_ID = 1

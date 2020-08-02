@@ -14,6 +14,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.fields import StreamField
 from streams import blocks
 
+
 class BlogIndexPage(Page):
     subpage_types = [
         'blog.BlogPage',
@@ -78,6 +79,7 @@ class BlogPage(Page):
             FieldPanel('tags'),
             InlinePanel("post_author", label='Author', max_num=1),
             FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
+            # InlinePanel('customcomments', label='comment')
 
         ], heading='Blog information'),
         FieldPanel('intro'),
@@ -85,6 +87,9 @@ class BlogPage(Page):
         InlinePanel('gallery_images', label='Gallery Images'),
         StreamFieldPanel("sequel")
     ]
+
+    def get_absolute_url(self):
+        return self.get_url()
 
 
 class VideoBlogPage(BlogPage):
@@ -182,17 +187,18 @@ class BlogCategory(models.Model):
     class Meta:
         verbose_name_plural = "blog categories"
 
-@register_snippet
-class BlogLogo(models.Model):
-    name = models.CharField(max_length=250)
-    logo = models.ForeignKey(
-        'wagtailimages.Image',
-        on_delete=models.CASCADE,
-        related_name='+'
-    )
-    panels = [
-        FieldPanel('name', classname='full'),
-        ImageChooserPanel('logo')
-    ]
-    def __str__(self):
-        return self.name
+# @register_snippet
+# class BlogLogo(models.Model):
+#     name = models.CharField(max_length=250)
+#     logo = models.ForeignKey(
+#         'wagtailimages.Image',
+#         on_delete=models.CASCADE,
+#         related_name='+'
+#     )
+#     panels = [
+#         FieldPanel('name', classname='full'),
+#         ImageChooserPanel('logo')
+#     ]
+#     def __str__(self):
+#         return self.name
+
