@@ -1,7 +1,7 @@
 {% load static wagtailuserbar  %}
 {% load wagtailcore_tags wagtailimages_tags  %}
 {% load menu_tags %}
-
+{% load static %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -32,28 +32,17 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="{% slugurl 'home' %}">Horror Blog</a>
-
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="{% slugurl 'home' %}">
+<!--              <img src="{% static 'mywagtail/ghost.jpg' %}" alt="My image" />-->
+<!--              <img src="ghost.jpg" alt="My image" />-->
+              Horror
+          </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
-<!--                <li class="nav-item active">-->
-<!--                    {% main_menu max_levels=3 template="menus/main_menu.html" sub_menu_template="menus/sub_menu.html" %}-->
-<!--              </li>-->
-<!--              <div class="btn-group" role="group" aria-label="Button group with nested dropdown">-->
-<!--                  <button type="button" class="btn btn-danger">Our Lists</button>-->
-<!--                  <div class="btn-group" role="group">-->
-<!--                    <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>-->
-<!--                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" style="">-->
-<!--                      <a class="dropdown-item" href="{% slugurl '10-best-horror-movies' %}">10 best horror movies</a>-->
-<!--&lt;!&ndash;                      <a class="dropdown-item" href="#">Dropdown link</a>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--              </div>-->
                 <li class="nav-item">
                 <a class="nav-link" href="{% slugurl '10-best-horror-movies' %}">Our Lists</a>
               </li>

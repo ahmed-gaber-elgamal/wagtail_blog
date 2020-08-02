@@ -53,14 +53,15 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
 
+    'wagtailcaptcha',
+    'captcha',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.github',
-    # 'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.linkedin',
-
+    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.linkedin_oauth2',
     'blog',
     'streams',
     "site_settings",
@@ -178,6 +179,8 @@ STATICFILES_FINDERS = [
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(BASE_DIR, 'mywagtail/static/'),
+
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
@@ -214,3 +217,19 @@ ACCOUNT_PRESERVE_USERNAME_CASING = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_USERNAME_BLACKLIST = ['ahmed', 'admin']
 ACCOUNT_USERNAME_MIN_LENGTH = 3
+SOCIALACCOUNT_AUTO_SIGNUP = False
+# RECAPTCHA_PUBLIC_KEY = '6LfzNbgZAAAAAAkJIHU8odXfVYURMz8EoZt0_odh'
+# RECAPTCHA_PRIVATE_KEY = '6LfzNbgZAAAAAMeTzxeHb6ZEKOXDv_VqhpBCgusu'
+# NOCAPTCHA=True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}

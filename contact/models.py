@@ -3,14 +3,17 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-
+# from captcha.fields import CaptchaField
+from wagtailcaptcha.models import WagtailCaptchaEmailForm
 class FormField(AbstractFormField):
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
 
-class ContactPage(AbstractEmailForm):
+class ContactPage(WagtailCaptchaEmailForm):
     subpage_types = []
     parent_page_types = ['home.HomePage']
     intro = RichTextField(blank=True)
+    # captcha = CaptchaField()
+
     thank_you_text = RichTextField(blank=True)
     content_panels = AbstractEmailForm.content_panels+[
         FieldPanel('intro'),

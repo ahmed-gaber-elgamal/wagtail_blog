@@ -21,7 +21,9 @@ urlpatterns = [
     url(r'^sitemap.xml$', sitemap),
     # path('', include('allauth.urls')),
     url(r'', include('allauth.urls')),
-    url(r'', include(wagtail_urls))
+    url(r'', include(wagtail_urls)),
+    url(r'^captcha/', include('captcha.urls')),
+
 ]
 
 
