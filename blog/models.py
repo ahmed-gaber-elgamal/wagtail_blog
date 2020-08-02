@@ -181,3 +181,18 @@ class BlogCategory(models.Model):
         return self.name
     class Meta:
         verbose_name_plural = "blog categories"
+
+@register_snippet
+class BlogLogo(models.Model):
+    name = models.CharField(max_length=250)
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+    panels = [
+        FieldPanel('name', classname='full'),
+        ImageChooserPanel('logo')
+    ]
+    def __str__(self):
+        return self.name

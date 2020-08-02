@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin_oauth2',
+    'wagtail_opengraph_image_generator',
+
     'blog',
     'streams',
     "site_settings",
@@ -69,7 +71,7 @@ INSTALLED_APPS = [
     "subscribers",
     'wagtailmenus',
     'contact',
-    'rest_framework'
+    'rest_framework',
 
 ]
 SITE_ID = 1
@@ -218,9 +220,9 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_USERNAME_BLACKLIST = ['ahmed', 'admin']
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 SOCIALACCOUNT_AUTO_SIGNUP = False
-# RECAPTCHA_PUBLIC_KEY = '6LfzNbgZAAAAAAkJIHU8odXfVYURMz8EoZt0_odh'
-# RECAPTCHA_PRIVATE_KEY = '6LfzNbgZAAAAAMeTzxeHb6ZEKOXDv_VqhpBCgusu'
-# NOCAPTCHA=True
+RECAPTCHA_PUBLIC_KEY = '6LeDOrgZAAAAAEN36A6LPnEiVUwpYphiV12FUibN'
+RECAPTCHA_PRIVATE_KEY = '6LeDOrgZAAAAAJCxiat28bhKCmNvelPjkhrL6ieG'
+NOCAPTCHA=True
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
