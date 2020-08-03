@@ -12,10 +12,13 @@ from taggit.models import TaggedItemBase
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.fields import StreamField
+from django_countries.fields import CountryField
+from wagtail.contrib.routable_page.models import route, RoutablePageMixin
+from django.shortcuts import render
 from streams import blocks
 
 
-class BlogIndexPage(Page):
+class BlogIndexPage(RoutablePageMixin, Page):
     subpage_types = [
         'blog.BlogPage',
         'blog.VideoBlogPage',
@@ -39,11 +42,25 @@ class BlogIndexPage(Page):
             posts = paginator.page(paginator.num_pages)
 
         context['blogpages'] = blogpages
+        context['categories'] = BlogCategory.objects.all()
         context['posts'] = posts
         return context
 
-# todo:about(page)
+    @route(r"^category/(?P<cat_slug>[-\w]*)/$", name="category_view")
+    def category_view(self, request, cat_slug):
+        context = self.get_context(request)
+        category = BlogCategory.objects.get(slug=cat_slug)
+        context['category'] = category
+        context['posts'] = BlogPage.objects.filter(categories__in=[category])
+        return render(request, "home/category.html", context)
 
+    @route(r"^categories/$", name="categories_view")
+    def categories_view(self, request):
+        context = self.get_context(request)
+        categories = BlogCategory.objects.all
+        context['categories'] = categories
+        # context['posts'] = BlogPage.objects.filter(categories__in=[category])
+        return render(request, "home/categories.html", context)
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
@@ -56,7 +73,8 @@ class BlogPage(Page):
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories = ParentalManyToManyField("blog.BlogCategory", blank=True)
-
+    # country = CountryField(multiple=True, blank=True)
+    country = CountryField(blank_label='(select country)', default='NZ')
 
     sequel = StreamField([
         ('title_and_text', blocks.TitleAndTextBlock()),
@@ -78,6 +96,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels+[
         MultiFieldPanel([
             FieldPanel('date'),
+            FieldPanel('country'),
             FieldPanel('tags'),
             InlinePanel("post_author", label='Author', max_num=1),
             FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
@@ -171,6 +190,13 @@ register_snippet(BlogAuthor)
 @register_snippet
 class BlogCategory(models.Model):
     name = models.CharField(max_length=250)
+    slug = models.SlugField(
+        verbose_name='slug',
+        blank=True,
+        allow_unicode=True,
+        max_length=250,
+        help_text='a slug to identify posts by this category'
+    )
     icon = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -180,6 +206,7 @@ class BlogCategory(models.Model):
     )
     panels = [
         FieldPanel('name'),
+        FieldPanel('slug'),
         ImageChooserPanel('icon'),
     ]
 

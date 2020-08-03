@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.sitemaps',
     'wagtail.contrib.redirects',
+    'wagtail.contrib.routable_page',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
 
-    'wagtailcaptcha',
+    # 'wagtailcaptcha',
     'captcha',
     'allauth',
     'allauth.account',
@@ -66,6 +67,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin_oauth2',
     'widget_tweaks',
+    'django_countries',
+    # "pinax.badges",
+    'todo',
+    'tellme',
 
     'blog',
     'streams',
@@ -184,6 +189,7 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
 ]
 
 STATICFILES_DIRS = [

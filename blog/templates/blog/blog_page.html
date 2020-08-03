@@ -4,7 +4,10 @@
 {% load social_share %}
 
 {% block content %}
+
     <h1>{{ page.title }}</h1>
+film country: {{ page.country.name }}
+<i class="flag4x {{ page.country.flag_css }}"><img src="{{ page.country.flag }}" alt="img"></i>
     <p class="meta">posted at {{ page.date }} by {{ page.owner }}</p>
 
     {% with categories=page.categories.all %}
@@ -14,7 +17,7 @@
                 {% for category in categories %}
                     <li style="display:inline">
                         {% image category.icon fill-32x32 style="vertical-align:middle" %}
-                        <a href="{{ self.get_parent.url }}?category={{ cat.slug }}">{{ category.name }}</a>
+                        <a href="{{ self.get_parent.url }}?category={{ category.slug }}">{{ category.name }}</a>
                     </li>
                 {%endfor%}
             </ul>

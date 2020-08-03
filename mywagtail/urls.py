@@ -10,7 +10,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from search import views as search_views
 from .api import api_router
 from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
-
+# from pinax.badges.urls import urls
 
 urlpatterns = [
     url(r'^admin/autocomplete/', include(autocomplete_admin_urls)),
@@ -27,6 +27,9 @@ urlpatterns = [
     url(r'', include(wagtail_urls)),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^comments/', include('django_comments.urls')),
+    # url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges")),
+    url(r'^tellme/', include("tellme.urls")),
+
 
 ]
 
