@@ -12,7 +12,6 @@ from taggit.models import TaggedItemBase
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.fields import StreamField
-from wagtailautocomplete.edit_handlers import AutocompletePanel
 from streams import blocks
 
 

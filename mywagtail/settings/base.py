@@ -78,6 +78,7 @@ INSTALLED_APPS = [
      'django_comments',
     'django_social_share',
     "social_widgets",
+    'hitcount'
 
 ]
 SITE_ID = 1
