@@ -12,6 +12,7 @@ from taggit.models import TaggedItemBase
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.fields import StreamField
+from wagtailautocomplete.edit_handlers import AutocompletePanel
 from streams import blocks
 
 
@@ -56,6 +57,8 @@ class BlogPage(Page):
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories = ParentalManyToManyField("blog.BlogCategory", blank=True)
+
+
     sequel = StreamField([
         ('title_and_text', blocks.TitleAndTextBlock()),
 
@@ -79,13 +82,12 @@ class BlogPage(Page):
             FieldPanel('tags'),
             InlinePanel("post_author", label='Author', max_num=1),
             FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
-            # InlinePanel('customcomments', label='comment')
 
         ], heading='Blog information'),
         FieldPanel('intro'),
         FieldPanel('body', classname='full'),
         InlinePanel('gallery_images', label='Gallery Images'),
-        StreamFieldPanel("sequel")
+        StreamFieldPanel("sequel"),
     ]
 
     def get_absolute_url(self):

@@ -6,8 +6,17 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel, InlinePanel, MultiFieldPanel, ObjectList, TabbedInterface
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtailautocomplete.edit_handlers import AutocompletePanel
 # from wagtail.admin.edit_handlers import
 from streams import blocks
+# from wagtailleafletwidget.edit_handlers import GeoPanel
+# from django.utils.functional import cached_property
+# from wagtailleafletwidget.helpers import geosgeometry_str_to_struct
+from wagtailgeowidget.edit_handlers import GeoPanel
+from django.utils.functional import cached_property
+from wagtailgeowidget.helpers import geosgeometry_str_to_struct
+from django.utils.translation import ugettext as _
+
 
 
 class HomePage(Page):
@@ -44,7 +53,7 @@ class HomePage(Page):
         FieldPanel('banner_title'),
         FieldPanel('banner_subtitle'),
         ImageChooserPanel('banner_image'),
-        PageChooserPanel('banner_cta'),
+        AutocompletePanel('banner_cta'),
         FieldPanel('body', classname='full'),
         MultiFieldPanel([
             InlinePanel("carousel_images", max_num=5, min_num=1)
@@ -74,6 +83,9 @@ class HomePage(Page):
 class BlogAbout(Page):
     subpage_types = []
     max_count = 1
+    address = models.CharField(max_length=250, blank=True, null=True)
+    location = models.CharField(max_length=250, blank=True, null=True)
+
     content = StreamField([
         ("title_and_text", blocks.TitleAndTextBlock()),
         ("Full_richtext", blocks.RichtextBlock()),
@@ -84,8 +96,27 @@ class BlogAbout(Page):
     subtitle = models.CharField(max_length=250, blank=True, null=True)
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel("content")
+        StreamFieldPanel("content"),
+
+        MultiFieldPanel([
+            FieldPanel('address'),
+            GeoPanel('location', address_field='address'),
+        ], _('Geo details')),
+
+
     ]
+    @cached_property
+    def point(self):
+        return geosgeometry_str_to_struct(self.location)
+
+    @property
+    def lat(self):
+        return self.point['y']
+
+    @property
+    def lng(self):
+        return self.point['x']
+
 class HomePageCarouselImages(Orderable):
     page = ParentalKey('home.HomePage', on_delete=models.CASCADE, related_name='carousel_images')
     carousel_image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+', null=True, blank=False)
