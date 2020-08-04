@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load wagtailcore_tags %}
 {% block content %}
+<div class="container">
     <h1>{{ self.title }}</h1>
     <h3>{{ self.intro|richtext }}</h3>
     <form action="{% pageurl page %}" method="post">
@@ -49,11 +50,13 @@
       </div>
 
   </fieldset>
-           {{ form.captcha }}
+
         <button type="submit" class="btn btn-danger">Submit</button>
+        <button type="button" id="feedback-btn" class="btn btn-info vertical-right-aligned">
+            Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+        </button>
+
 </form>
-<button type="button" id="feedback-btn" class="btn btn-info vertical-right-aligned">
-    Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-</button>
+</div>
 
 {% endblock %}

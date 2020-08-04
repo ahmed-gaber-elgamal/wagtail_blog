@@ -54,6 +54,15 @@ class BlogIndexPage(RoutablePageMixin, Page):
         context['posts'] = BlogPage.objects.filter(categories__in=[category])
         return render(request, "home/category.html", context)
 
+    # @route(r"^year/(\d+)/$", name="year_view")
+    # def category_view(self, request, year=None):
+    #     context = self.get_context(request)
+    #     print(year)
+    #     # release_year = BlogPage.objects.get(release=year)
+    #     # context['category'] = category
+    #     # context['posts'] = BlogPage.objects.filter(release__in=[release_year])
+    #     return render(request, "home/category.html", context)
+
     @route(r"^categories/$", name="categories_view")
     def categories_view(self, request):
         context = self.get_context(request)
@@ -61,11 +70,13 @@ class BlogIndexPage(RoutablePageMixin, Page):
         context['categories'] = categories
         # context['posts'] = BlogPage.objects.filter(categories__in=[category])
         return render(request, "home/categories.html", context)
+
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
 
-class BlogPage(Page):
+class BlogPage(RoutablePageMixin, Page):
     subpage_types = []
     parent_page_types = ['blog.BlogIndexPage']
     date = models.DateField('Post date')
@@ -75,6 +86,7 @@ class BlogPage(Page):
     categories = ParentalManyToManyField("blog.BlogCategory", blank=True)
     # country = CountryField(multiple=True, blank=True)
     country = CountryField(blank_label='(select country)', default='NZ')
+    release = models.IntegerField(default=2000)
 
     sequel = StreamField([
         ('title_and_text', blocks.TitleAndTextBlock()),
@@ -96,6 +108,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels+[
         MultiFieldPanel([
             FieldPanel('date'),
+            FieldPanel('release'),
             FieldPanel('country'),
             FieldPanel('tags'),
             InlinePanel("post_author", label='Author', max_num=1),

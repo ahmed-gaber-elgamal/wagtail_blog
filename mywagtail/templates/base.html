@@ -36,7 +36,7 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
           <a class="navbar-brand" href="{% slugurl 'home' %}">
             <img src="{% static 'images/ghost2.svg' %}" height="35" width="35">
           </a>
@@ -92,7 +92,142 @@
 
 <hr class="my-4" style="color:gray;background-color:gray">
 
-        {% flat_menu 'footer' max_levels=1 show_menu_heading=True  fall_back_to_default_site_menus=True %}
+<!--        {% flat_menu 'footer' max_levels=1 show_menu_heading=True  fall_back_to_default_site_menus=True %}-->
+<!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 mx-auto">
+
+        <!-- Content -->
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Horror Blog</h5>
+        <p>lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 mx-auto">
+
+        <!-- Links -->
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4"> Important Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.imdb.com/?ref_=nv_home" target="_blank">IMDB</a>
+          </li>
+          <li>
+            <a href="https://www.rottentomatoes.com/" target="_blank">Rotten Tomatoes</a>
+          </li>
+          <li>
+            <a href="https://www.indiewire.com/" target="_blank">indiewire</a>
+          </li>
+          <li>
+            <a href="https://variety.com/" target="_blank">Variety</a>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+
+      <hr class="clearfix w-100 d-md-none">
+
+      <!-- Grid column -->
+      <div class="col-md-2 mx-auto">
+
+        <!-- Links -->
+        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Youtube Channels</h5>
+
+        <ul class="list-unstyled">
+            <li>
+            <a href="https://www.youtube.com/results?search_query=nerd+writer" target="_blank">NerdWriter</a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/c/FilmGamed" target="_blank">FilmGamed</a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/channel/UCAMQZZXKxFhdr5gvbcy1IuQ" target="_blank">ShreetVideo</a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/c/CINEMATOLOGYOfficial" target="_blank">CINEMATOLOGY</a>
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <hr>
+
+  <!-- Call to action -->
+  <ul class="list-unstyled list-inline text-center py-2">
+    <li class="list-inline-item">
+      <h5 class="mb-1">Register for free</h5>
+    </li>
+    <li class="list-inline-item">
+{{ site }}
+      <a href="{% url 'account_signup' %}" class="btn btn-danger btn-rounded">Sign up!</a>
+
+    </li>
+  </ul>
+  <!-- Call to action -->
+
+  <hr>
+
+  <!-- Social buttons -->
+  <ul class="list-unstyled list-inline text-center">
+    <li class="list-inline-item">
+      <a class="btn-floating btn-fb mx-1" href="https://www.facebook.com/ahmed.gaber.2013">
+        <i class="fab fa-facebook-f fa-3x"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-tw mx-1" href="https://twitter.com/elite_iti">
+        <i class="fab fa-twitter fa-3x"> </i>
+      </a>
+    </li>
+<!--    <li class="list-inline-item">-->
+<!--      <a class="btn-floating btn-gplus mx-1" href="">-->
+<!--        <i class="fab fa-google fa-3x"> </i>-->
+<!--      </a>-->
+<!--    </li>-->
+    <li class="list-inline-item">
+      <a class="btn-floating btn-li mx-1" href="https://www.linkedin.com/in/ahmed-gaber-elgamal-eg/">
+        <i class="fab fa-linkedin-in fa-3x"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-github mx-1" href="https://github.com/ahmed-gaber-elgamal">
+        <i class="fab fa-github fa-3x"> </i>
+      </a>
+    </li>
+  </ul>
+  <!-- Social buttons -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright
+      made with <i class="fas fa-heart" style="color:red;"></i> by
+    <a href="https://www.linkedin.com/in/ahmed-gaber-elgamal-eg/"> Ahmed Gaber</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/mywagtail.js' %}"></script>

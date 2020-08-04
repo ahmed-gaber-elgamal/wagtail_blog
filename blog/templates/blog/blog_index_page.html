@@ -5,22 +5,19 @@
 {% block body_class %}template-blogindexpage{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <h3>categories</h3>
-    <ul>
-        {% for category in categories %}
-            <li style="display:inline">
-               {% image category.icon fill-32x32 style="vertical-align:middle" %}
-                <a href="{{self.url}}category/{{ category.slug }}">{{ category.name }}</a>
-            </li>
-        {%endfor%}
-    </ul>
-    <div class="intro">{{ page.intro|richtext }}</div>
-
+<div class="container">
+    <div class="text-center">
+        <h1>{{ page.title }}</h1>
+<!--    <div class="intro">{{ page.intro|richtext }}</div>-->
     {% for post in posts %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        {{ post.specific.intro }}
+                <div class="text-center">
+            <h2 ><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            {% image post.specific.gallery_images.first.image width-500  %}
+            <p>{{ post.specific.gallery_images.first.caption }}</p>
+            <em>{{ post.specific.intro }}</em>
         {{ post.specific.body|richtext }}
+
+        </div>
 
     {% endfor %}
 
@@ -58,4 +55,10 @@
         </div>
     </div>
 
+
+</div>
+        </div>
 {% endblock %}
+
+
+
