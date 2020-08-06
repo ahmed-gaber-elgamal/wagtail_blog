@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags comments  %}
+{% load wagtailcore_tags wagtailimages_tags  comments %}
+<!--comments comments_xtd widget_tweaks static-->
 {% block body_class %}template-blogpage{% endblock %}
 {% load social_share %}
 
@@ -115,7 +116,7 @@
         {% if comment_count %}
             <hr>
             <div class="container-fluid mt-4 media-list">
-                {% render_comment_list for page %}
+                {% render_comment_list for page  %}
 
             </div>
         {% endif %}

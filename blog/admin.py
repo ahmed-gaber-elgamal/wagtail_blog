@@ -1,9 +1,7 @@
 # from django.contrib import admin
 # from django_comments_xtd.admin import XtdCommentsAdmin
-# # from django.utils.translation import ugettext_lazy as _
-#
+# from django.utils.translation import ugettext_lazy as _
 # from .models import CustomComment
-#
 #
 # class CustomCommentAdmin(XtdCommentsAdmin):
 #     list_display = ( 'cid', 'name', 'page','ip_address',

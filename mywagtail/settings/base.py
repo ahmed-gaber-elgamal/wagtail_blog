@@ -80,15 +80,14 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'contact',
     'rest_framework',
-    'django_comments',
     'django_social_share',
     "social_widgets",
     'hitcount',
+    'django_comments_xtd',
+    'django_comments',
 
 ]
 SITE_ID = 1
-
-
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -194,7 +193,7 @@ STATICFILES_FINDERS = [
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
-    os.path.join(BASE_DIR, 'mywagtail/static/'),
+    os.path.join(BASE_DIR, 'mywagtail/static/mywagtail/'),
 
 ]
 
@@ -224,7 +223,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True

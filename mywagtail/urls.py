@@ -13,7 +13,7 @@ from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_url
 # from pinax.badges.urls import urls
 
 urlpatterns = [
-    url(r'^comments/', include('django_comments.urls')),
+    path(r'comments/', include('django_comments.urls')),
     # url(r'^captcha/', include('captcha.urls')),
     url(r'^tellme/', include("tellme.urls")),
 

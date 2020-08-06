@@ -5,7 +5,6 @@
 {% for provider in socialaccount_providers %}
 {% if provider.id == "openid" %}
 {% for brand in provider.get_brands %}
-
 <li>
   <a title="{{brand.name}}"
      class="socialaccount_provider {{provider.id}} {{brand.id}}"
@@ -15,9 +14,9 @@
 {% endfor %}
 {% endif %}
 <li>
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+    <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
      href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-  <img alt="{{brand.name}}" src="{% static 'images/' %}{{brand.name}}logo.png" width="40" height="40"></a>
+  <img alt="{{provider.name}}" src="{% static 'images/' %}{{provider.name}}logo.png" width="40" height="40"></a>
 
 </li>
 {% endfor %}
