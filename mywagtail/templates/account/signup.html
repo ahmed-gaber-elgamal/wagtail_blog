@@ -1,38 +1,41 @@
-
-
-
-{% extends "account/base.html" %}
-
+{% extends "account/base_card.html" %}
 {% load i18n  %}
 {% load socialaccount %}
 {% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block card-header %}
+  <h3>{% trans "Signup" %}</h3>
+{% endblock%}
 
-{% block content %}
-  <div class="container mt-5 mb-6">
-      <div class="row">
-          <div >
-            <h1>{% trans "Sign Up" %}</h1>
-              {% get_providers as socialaccount_providers %}
-
-
+{% block card-body %}
             <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            <form class="needs-validation" id="signup_form" method="post" action="{% url 'account_signup' %}" novalidate>
               {% csrf_token %}
-              {{ form.as_p }}
-              {% if redirect_field_value %}
-              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-              {% endif %}
+              <div class="form-row">
+                <div class="form-group col-md-">
+                  {% with field=form.username%}{% include 'account/form_field.html' %}{% endwith %}
+                </div>
+                  <div class="form-group col-md-">
+                  {% with field=form.email %}{% include 'account/form_field.html' %}{% endwith %}
+                </div>
+                <div class="form-group col-md-">
+                  {% with field=form.password1 %}{% include 'account/form_field.html' %}{% endwith %}
+                </div>
+                <div class="form-group col-md-">
+                  {% with field=form.password2 %}{% include 'account/form_field.html' %}{% endwith %}
+                </div>
+              </div>
+
               <button type="submit" class="btn btn-danger">{% trans "Sign Up" %} &raquo;</button>
             </form>
+{% endblock %}
+{% block card-footer %}
+            {% get_providers as socialaccount_providers %}
             {% if socialaccount_providers %}
-            <p>{% blocktrans with site.name as site_name %}Please sign in with one
-            of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-            for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
             <div class="socialaccount_ballot">
 
               <ul class="socialaccount_providers">
+                  signup with
                 {% include "socialaccount/snippets/provider_list.html" with process="login" %}
               </ul>
 

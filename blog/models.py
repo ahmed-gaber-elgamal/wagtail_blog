@@ -54,15 +54,6 @@ class BlogIndexPage(RoutablePageMixin, Page):
         context['posts'] = BlogPage.objects.filter(categories__in=[category])
         return render(request, "home/category.html", context)
 
-    # @route(r"^year/(\d+)/$", name="year_view")
-    # def category_view(self, request, year=None):
-    #     context = self.get_context(request)
-    #     print(year)
-    #     # release_year = BlogPage.objects.get(release=year)
-    #     # context['category'] = category
-    #     # context['posts'] = BlogPage.objects.filter(release__in=[release_year])
-    #     return render(request, "home/category.html", context)
-
     @route(r"^categories/$", name="categories_view")
     def categories_view(self, request):
         context = self.get_context(request)
@@ -71,6 +62,26 @@ class BlogIndexPage(RoutablePageMixin, Page):
         # context['posts'] = BlogPage.objects.filter(categories__in=[category])
         return render(request, "home/categories.html", context)
 
+    @route(r"^year/(\d+)/$", name="year_view")
+    def year_view(self, request, year=None):
+        context = self.get_context(request)
+        context['year'] = year
+        if year is not None:
+            posts = BlogPage.objects.live().public().filter(release=year)
+        else:
+            posts = BlogPage.objects.live().public().filter(release=2020)
+        print(year)
+        context['posts'] = posts
+        return render(request, "home/release.html", context)
+
+    @route(r"^years/$", name="years_view")
+    def years_view(self, request):
+        context = self.get_context(request)
+        # context['year'] = year
+        posts = BlogPage.objects.live().public().all()
+        # print(year)
+        context['posts'] = posts
+        return render(request, "home/releases.html", context)
 
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('BlogPage', on_delete=models.CASCADE, related_name='tagged_items')

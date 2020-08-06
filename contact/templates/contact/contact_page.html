@@ -1,6 +1,9 @@
+
 {% extends 'base.html' %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags static %}
+
 {% block content %}
+<link href="{% static 'tellme/feedback.min.css' %}" rel="stylesheet">
 <div class="container">
     <h1>{{ self.title }}</h1>
     <h3>{{ self.intro|richtext }}</h3>
@@ -55,8 +58,9 @@
         <button type="button" id="feedback-btn" class="btn btn-info vertical-right-aligned">
             Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
         </button>
-
+{{ captcha }}
 </form>
 </div>
 
 {% endblock %}
+{%  include 'tellme/js_inc.html' %}

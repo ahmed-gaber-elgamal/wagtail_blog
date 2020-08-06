@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.urls import path
 from django.contrib import admin
-
+from .views import profile_view
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -13,6 +13,10 @@ from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_url
 # from pinax.badges.urls import urls
 
 urlpatterns = [
+    url(r'^comments/', include('django_comments.urls')),
+    # url(r'^captcha/', include('captcha.urls')),
+    url(r'^tellme/', include("tellme.urls")),
+
     url(r'^admin/autocomplete/', include(autocomplete_admin_urls)),
 
     url(r'^django-admin/', admin.site.urls),
@@ -23,12 +27,13 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
     url(r'^api/v2/',api_router.urls ),
     url(r'^sitemap.xml$', sitemap),
-    url(r'', include('allauth.urls')),
+    url(r'^account/', include('allauth.urls')),
+    path(r'account/profile/', profile_view,  name='account_profile'),
     url(r'', include(wagtail_urls)),
-    url(r'^captcha/', include('captcha.urls')),
-    url(r'^comments/', include('django_comments.urls')),
+
+
     # url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges")),
-    url(r'^tellme/', include("tellme.urls")),
+
 
 
 ]

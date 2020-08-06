@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
 
-    # 'wagtailcaptcha',
+    'wagtailcaptcha',
     'captcha',
     'allauth',
     'allauth.account',
@@ -80,10 +80,10 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'contact',
     'rest_framework',
-     'django_comments',
+    'django_comments',
     'django_social_share',
     "social_widgets",
-    'hitcount'
+    'hitcount',
 
 ]
 SITE_ID = 1
@@ -218,12 +218,13 @@ WAGTAIL_SITE_NAME = "mywagtail"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = 'account/login/'
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
@@ -232,6 +233,7 @@ ACCOUNT_PRESERVE_USERNAME_CASING = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_USERNAME_BLACKLIST = ['ahmed', 'admin']
 ACCOUNT_USERNAME_MIN_LENGTH = 3
+# ACCOUNT_SIGNUP_FORM_CLASS = 'mywagtail.forms.SignupForm'
 SOCIALACCOUNT_AUTO_SIGNUP = False
 
 
@@ -247,3 +249,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 GOOGLE_MAPS_V3_APIKEY = "AIzaSyCU521d5X5e9mcANu4V_FB-f39IN_j1bOs"
+RECAPTCHA_PUBLIC_KEY = '6LeDOrgZAAAAAEN36A6LPnEiVUwpYphiV12FUibN'
+RECAPTCHA_PRIVATE_KEY = '6LeDOrgZAAAAAJCxiat28bhKCmNvelPjkhrL6ieG'
+NOCAPTCHA = True

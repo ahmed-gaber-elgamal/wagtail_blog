@@ -27,7 +27,7 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'css/mywagtail.css' %}">
         <link href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all" rel="stylesheet">
-        <link href="{% static 'tellme/feedback.min.css' %}" rel="stylesheet">
+
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
@@ -48,6 +48,9 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                   <a class="nav-link" href="{% slugurl '10-best-horror-movies' %}categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% slugurl '10-best-horror-movies' %}years">Movies by year</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% slugurl '10-best-horror-movies' %}">Our Lists</a>
