@@ -29,6 +29,7 @@ dj-database-url==0.5.0
 dj-static==0.0.6
 Django==3.0
 django-allauth==0.42.0
+<<<<<<< HEAD
 django-analytical==2.6.0
 django-braces==1.14.0
 django-cogwheels==0.3
@@ -213,3 +214,18 @@ Whoosh==2.7.4
 Willow==1.3
 XlsxWriter==1.2.9
 zipp==3.1.0
+=======
+django-comments-xtd==2.6.2
+django>=3.0,<3.1
+wagtail>=2.9,<2.10
+wagtail-django-recaptcha==1.0
+django-allauth==0.42.0
+django-comments-xtd==2.6.2
+wagtailleafletwidget==1.0.1
+wagtailgeowidget==5.0.2
+django_countries==6.1.2
+wagtail-autocomplete==0.6
+django-tellme==0.6.5
+django_social_share==1.4.0
+django-contrib-comments==1.9.2
+>>>>>>> origin/master
